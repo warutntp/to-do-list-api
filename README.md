@@ -126,12 +126,12 @@ src
 │       ├── controller.ts
 │       ├── route.ts
 │       ├── service.ts
-│       ├── type.ts
+│       └── type.ts
 ├── middleware
 │   ├── asyncHandler.ts
 │   ├── errorHandler.ts
 │   ├── logger.ts
-│   ├── validators.ts
+│   └── validators.ts
 ├── tests
 │   └── todo.test.ts
 ├── utils
