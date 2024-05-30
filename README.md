@@ -12,30 +12,30 @@ This project is a simple Todo List API built with Express.js and TypeScript.
 
 1. Clone the repository:
 ```bash
-    git clone https://github.com/your-username/todo-list-api.git
-    cd todo-list-api
+git clone https://github.com/your-username/todo-list-api.git
+cd todo-list-api
    ```
 
 2. Install dependencies:
 ```bash
-    npm install
+npm install
 ```
 
 3. Start the server:
 ```bash
-    npm start
+npm start
 ```
 
 4. For development mode with automatic restarts, use:
 ```bash
-    npm run dev
+npm run dev
 ```
 
 ## Usage
 Once the server is running, you can interact with the API using a tool like Postman or curl.
 
 ## API Endpoints
-#### Get all Todos
+### Get all Todos
 - **URL:** `/api/todos`
 - **Method:** `GET`
 - **Query Parameters:** `completed`(optional, boolean)
@@ -52,7 +52,7 @@ Once the server is running, you can interact with the API using a tool like Post
     ]
 ```
 
-#### Get Todo by ID
+### Get Todo by ID
 - **URL:** `/api/todos/:id`
 - **Method:** `GET`
 - **Response:** JSON object of the requested todo
@@ -65,7 +65,7 @@ Once the server is running, you can interact with the API using a tool like Post
     }
 ```
 
-#### Create a Todo
+### Create a Todo
 - **URL:** `/api/todos`
 - **Method:** `POST`
 - **Body:**
@@ -85,7 +85,7 @@ Once the server is running, you can interact with the API using a tool like Post
     }
 ```
 
-#### Update a Todo
+### Update a Todo
 - **URL:** `/api/todos/:id`
 - **Method:** `PUT`
 - **Body:**
@@ -105,7 +105,7 @@ Once the server is running, you can interact with the API using a tool like Post
         "completed": true
     }
 ```
-#### Delete a Todo
+### Delete a Todo
 - **URL:** `/api/todos/:id`
 - **Method:** `DELETE`
 - **Response:** JSON object of the deleted todo
@@ -118,7 +118,7 @@ Once the server is running, you can interact with the API using a tool like Post
     }
 ```
 
-#### Project Structure
+## Project Structure
 ```
 src
 ├── controllers
