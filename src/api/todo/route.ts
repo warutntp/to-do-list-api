@@ -5,14 +5,15 @@ import {
   createTodo,
   updateTodo,
   deleteTodo,
-} from "../controllers/todoController";
-import { handleError } from "../utils/handleError";
+} from "./controller";
+import { handleError } from "../../utils/handleError";
+import { validateTodo } from "../../middleware/validators";
 
 const router = Router();
 
 router.get("/", getTodos);
 router.get("/:id", getTodoById);
-router.post("/", createTodo);
+router.post("/", validateTodo, createTodo);
 router.put("/:id", updateTodo);
 router.delete("/:id", deleteTodo);
 

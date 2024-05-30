@@ -7,7 +7,12 @@ const errorMessages: { [key: number]: string } = {
   500: "Internal server error",
 };
 
-export const handleError = (res: Response, statusCode: number) => {
-  const message = errorMessages[statusCode] || "An error occurred";
-  res.status(statusCode).json({ message });
+export const handleError = (
+  res: Response,
+  statusCode: number,
+  message?: string
+) => {
+  const errorMessage =
+    message ?? errorMessages[statusCode] ?? "An error occurred";
+  res.status(statusCode).json({ message: errorMessage });
 };
