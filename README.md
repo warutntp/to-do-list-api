@@ -12,9 +12,9 @@ This project is a simple Todo List API built with Express.js and TypeScript.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/todo-list-api.git
-cd todo-list-api
-   ```
+git clone https://github.com/warutntp/to-do-list-api.git
+cd to-do-list-api
+```
 
 2. Install dependencies:
 ```bash
@@ -22,13 +22,13 @@ npm install
 ```
 
 3. Start the server:
-```bash
-npm start
+```
+npm run dev
 ```
 
-4. For development mode with automatic restarts, use:
+4. To run the tests, use the following command:
 ```bash
-npm run dev
+npm test
 ```
 
 ## Usage
@@ -121,15 +121,22 @@ Once the server is running, you can interact with the API using a tool like Post
 ## Project Structure
 ```
 src
-├── controllers
-│   └── todoController.ts    # Controller for handling todo routes
-├── models
-│   └── todoModel.ts         # Todo model interface
-├── routes
-│   ├── index.ts             # Main router
-│   └── todoRoutes.ts        # Todo-specific routes
+├── api
+│   └── todo
+│       ├── controller.ts
+│       ├── route.ts
+│       ├── service.ts
+│       ├── type.ts
+├── middleware
+│   ├── asyncHandler.ts
+│   ├── errorHandler.ts
+│   ├── logger.ts
+│   ├── validators.ts
+├── tests
+│   └── todo.test.ts
 ├── utils
-│   └── handleError.ts       # Error handling utility
-├── app.ts                   # Express app setup
-└── server.ts                # Server setup and initialization
+│   └── handleError.ts
+├── app.ts
+├── routes.ts
+└── server.ts
 ```

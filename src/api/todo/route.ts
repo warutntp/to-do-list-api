@@ -7,14 +7,18 @@ import {
   deleteTodo,
 } from "./controller";
 import { handleError } from "../../utils/handleError";
-import { validateTodo } from "../../middleware/validators";
+import {
+  validGetTodos,
+  validateCreateTodo,
+  validateEditTodo,
+} from "../../middleware/validators";
 
 const router = Router();
 
-router.get("/", getTodos);
+router.get("/", validGetTodos, getTodos);
 router.get("/:id", getTodoById);
-router.post("/", validateTodo, createTodo);
-router.put("/:id", updateTodo);
+router.post("/", validateCreateTodo, createTodo);
+router.put("/:id", validateEditTodo, updateTodo);
 router.delete("/:id", deleteTodo);
 
 router.all("*", (req, res) => {

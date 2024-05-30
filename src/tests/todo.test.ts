@@ -75,6 +75,34 @@ describe("Todo API", () => {
     expect(res.body).toHaveProperty("id", todoId);
   });
 
+  it("should return 400 if completed is not a boolean", async () => {
+    const res = await request(app).get("/api/todos?completed=notaboolean");
+    expect(res.statusCode).toEqual(400);
+    expect(res.body.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          msg: "Completed must be true or false",
+        }),
+      ])
+    );
+  });
+
+  it("should return 200 if completed is a valid boolean", async () => {
+    const resTrue = await request(app).get("/api/todos?completed=true");
+    expect(resTrue.statusCode).toEqual(200);
+    expect(Array.isArray(resTrue.body)).toBeTruthy();
+
+    const resFalse = await request(app).get("/api/todos?completed=false");
+    expect(resFalse.statusCode).toEqual(200);
+    expect(Array.isArray(resFalse.body)).toBeTruthy();
+  });
+
+  it("should return 200 if completed is not provided", async () => {
+    const res = await request(app).get("/api/todos");
+    expect(res.statusCode).toEqual(200);
+    expect(Array.isArray(res.body)).toBeTruthy();
+  });
+
   it("should return 400 for creating a todo without title", async () => {
     const res = await request(app).post("/api/todos").send({
       description: "This todo has no title",
@@ -83,10 +111,88 @@ describe("Todo API", () => {
     expect(res.body).toHaveProperty("errors");
   });
 
+  it("should return 400 if title is more than 50 characters", async () => {
+    const longTitle = "a".repeat(51);
+    const res = await request(app).post("/api/todos").send({
+      title: longTitle,
+      description: "This is a test todo",
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          msg: "Title must be between 5 and 50 characters",
+        }),
+      ])
+    );
+  });
+
+  it("should return 400 if title is less than 5 characters", async () => {
+    const res = await request(app).post("/api/todos").send({
+      title: "Test",
+      description: "This is a test todo",
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          msg: "Title must be between 5 and 50 characters",
+        }),
+      ])
+    );
+  });
+
+  it("should return 400 if description is more than 150 characters", async () => {
+    const longDescription = "a".repeat(151);
+    const res = await request(app).post("/api/todos").send({
+      title: "Valid Title",
+      description: longDescription,
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          msg: "Title must be between 10 and 150 characters",
+        }),
+      ])
+    );
+  });
+
+  it("should return 400 if description is less than 10 characters", async () => {
+    const res = await request(app).post("/api/todos").send({
+      title: "Valid Title",
+      description: "Short",
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          msg: "Title must be between 10 and 150 characters",
+        }),
+      ])
+    );
+  });
+
   it("should return 400 for updating a todo with no data", async () => {
     const res = await request(app).put(`/api/todos/${todoId}`).send({});
     expect(res.statusCode).toEqual(400);
     expect(res.body).toHaveProperty("message", "No data provided for update");
+  });
+
+  it("should return 400 if completed is not a boolean", async () => {
+    const res = await request(app).put("/api/todos/1").send({
+      title: "Updated Title",
+      description: "This is an updated description",
+      completed: "not a boolean",
+    });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          msg: "Completed must be a boolean",
+        }),
+      ])
+    );
   });
 
   it("should return 404 after deleting a todo", async () => {
